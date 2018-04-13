@@ -15,10 +15,25 @@
   ## Questions - Self Study - You can exercise your Google-Fu for this and any other _Sprint Challenge_ in the future.
 
 1.  Describe the following: `DataBase`, `Collection` , `Document`
+
+Database is a structed set of data held in a computer that can be accesible in various ways.
+
+Collection is a group of MongoDB documents. It exist within a single database.
+
+Document is a document-oriented database designe to store semi-structured data as documents.
+
 1.  Describe how one can achieve the pattern of _relationships_ in MongoDB. What
     needs to take place at the schema level? How do we _'fill'_ in the
     appropriate relational data using mongoose?
+
+    One way is to embed the relationship in the document by placing the dependent object inside the main document.
+    The other way is to use a lin one document to the other. 
+    Using Mongoose DB-refs to link related documents on different collections, and then creating a middleware function to auto-populate the documents with their db-refs on any query.
+
+
 1.  Explain a way to break up an API into Sub-Applications, which tool did we use to do that?
+
+Using express Router allows you to break up the API.
 
 # Project description
 
