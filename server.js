@@ -41,7 +41,7 @@ server.get(`/`, (req, res) =>
 );
 
 // define a port to use
-const port = config.port || 5000;
+const port = 5000;
 
 server.listen(port, () => {
   console.log(`\n\nServer up and running on ${port}`);

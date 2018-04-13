@@ -1,13 +1,12 @@
 const router = require('express').Router();
 
-const CategoryModel = require('./categoryModel');
-const db_thrown_error = require(`./db_thrown_error`);
+const categoryModel = require('./categoryModel');
 
 // add endpoints here
 router
   .route(`/`)
   .get((req, res) => {
-    let query = CategoryModel.find({});
+    let query = categoryModel.find({});
 
     query
       .then(categories => {
@@ -18,8 +17,7 @@ router
         }
       })
       .catch(err => {
-        const error = db_thrown_error({ error: err, type: `GET` });
-        res.status(error.status).json(error.errorMessage);
+        res.status(500).json(err);
       });
   })
   .post((req, res) => {
@@ -30,7 +28,7 @@ router
     }
 
     // create a category Model
-    const category = new CategoryModel(req.body);
+    const category = new categoryModel(req.body);
 
     category
       .save()
@@ -38,8 +36,7 @@ router
         res.status(201).json(savedCategory);
       })
       .catch(err => {
-        const error = db_thrown_error({ error: err, type: `POST` });
-        res.status(error.status).json(error.errorMessage);
+        res.status(500).json(err);
       });
   });
 

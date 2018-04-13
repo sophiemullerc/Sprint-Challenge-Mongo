@@ -1,13 +1,12 @@
 const router = require('express').Router();
 
-const BudgetModel = require('./budgetModel');
-const db_thrown_error = require(`./db_thrown_error`);
+const budgetModel = require('./budgetModel');
 
 // add endpoints here
 router
   .route(`/`)
   .get((req, res) => {
-    let query = BudgetModel.find({});
+    let query = budgetModel.find({});
 
     query
       .then(budgets => {
@@ -18,8 +17,7 @@ router
         }
       })
       .catch(err => {
-        const error = db_thrown_error({ error: err, type: `GET` });
-        res.status(error.status).json(error.errorMessage);
+        res.status(500).json(err);
       });
   })
   .post((req, res) => {
@@ -35,7 +33,7 @@ router
     }
 
     // create a budget Model
-    const budget = new BudgetModel(req.body);
+    const budget = new budgetModel(req.body);
 
     budget
       .save()
@@ -43,9 +41,9 @@ router
         res.status(201).json(savedBudget);
       })
       .catch(err => {
-        const error = db_thrown_error({ error: err, type: `POST` });
-        res.status(error.status).json(error.errorMessage);
+        res.status(500).json(err);
       });
-  });
+    
+});
 
 module.exports = router;
